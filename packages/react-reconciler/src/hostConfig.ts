@@ -1,3 +1,6 @@
+/** 描述宿主环境方法的配置文件 */
+
+
 export type Container = any;
 export const createInstance = (...args: any) => {
   return {} as any;

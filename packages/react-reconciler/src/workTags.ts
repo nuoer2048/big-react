@@ -1,9 +1,11 @@
-// fiber 节点的类型
-
+// fiber 节点的类型, 什么类型的节点
 export type WorkTag =
   | typeof FunctionComponent
+  // 挂载的跟节点
   | typeof HostRoot
+  // div 对应的 FiberNode
   | typeof HostComponent
+  // div 里面的文本对应的节点
   | typeof HostText;
 
 export const FunctionComponent = 0;
