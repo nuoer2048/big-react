@@ -2,6 +2,7 @@ import { beginWork } from "./beginWork";
 import { completeWork } from "./completeWork";
 import { createWorkInProgress, FiberNode, FiberRootNode } from "./fiber";
 import { HostRoot } from "./workTags";
+import { MutationMask, NoFlags } from "./fiberFlags";
 
 // 正在工作fiberNode
 let workInProgress: FiberNode | null;
@@ -63,6 +64,50 @@ function renderRoot(root: FiberNode | null) {
   
   // wip FiberNode 树。 以及 树中的 Flags ,实现首屏渲染
   commitRoot(root);
+}
+/**
+ * react 有三个阶段
+ * 1. schedul 
+ * 2. render (workLoop)
+ * 3. commit 阶段
+ * commit 有三个阶段
+ * 1. beforeMutation
+ * 2. mutation （突变）
+ * 3. layout
+ */
+function commitRoot(root: FiberRootNode){
+   const finishedWork = root.finishedWork;
+   if(finishedWork === null){
+    return
+   }
+
+   if(__DEV__){
+    console.warn("commit 阶段开始")
+   }
+
+   root.finishedWork = null;
+
+   // 判断是否存在 3 个子阶段需要执行的操作
+
+   const subtreeHasEffect = (finishedWork.subtreeFlags & MutationMask) != NoFlags;
+   const flagsHasEffect = (finishedWork.flags & MutationMask) != NoFlags;
+
+   if(subtreeHasEffect || flagsHasEffect){
+
+    /**
+     * commit 阶段需要执行的操作
+     * 1. fiber 树的切换
+     * 2. 执行 Placement 操作
+     */
+      
+   // beforeMutation
+
+   // mutation Placement
+     root.current === finishedWork;
+   // commit 
+   }else {
+
+   }
 }
 
 // 先向下递归比对子节点，再比对兄弟节点

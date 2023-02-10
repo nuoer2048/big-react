@@ -7,8 +7,9 @@ export type WorkTag =
   | typeof HostComponent
   // div 里面的文本对应的节点
   | typeof HostText;
-
+// 这是 （） => React.Node
 export const FunctionComponent = 0;
+
 // react.render 的那个节点
 export const HostRoot = 3;
 // div
